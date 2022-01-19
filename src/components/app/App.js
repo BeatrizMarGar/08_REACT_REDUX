@@ -7,16 +7,20 @@ import { LoginPage, PrivateRoute } from '../auth';
 import { AuthProvider } from '../auth/context';
 import NotFoundPage from './NotFoundPage';
 
-function App({ isInitiallyLogged }) {
-  const [isLogged, setIsLogged] = React.useState(isInitiallyLogged);
-
-  const handleLogin = () => setIsLogged(true);
-  const handleLogout = () => setIsLogged(false);
-
-  const authProps = { isLogged, handleLogin, handleLogout };
+function App() {
+  //const [isLogged, setIsLogged] = React.useState(isInitiallyLogged);
+  //const [isLogged, setIsLogged] = React.useState(true);
+  //store.subscribe(() => setIsLogged(store.getState().auth))
+/*
+  const handleLogin = () => {
+    //setIsLogged(true);
+  }
+*/
+ // const authProps = { isLogged, handleLogin, handleLogout };
+ // const authProps = { handleLogin, handleLogout };
 
   return (
-    <AuthProvider {...authProps}>
+    //<AuthProvider {...authProps}>
       <Switch>
         <PrivateRoute exact path="/adverts/new" component={NewAdvertPage} />
         <PrivateRoute exact path="/adverts/:advertId">
@@ -34,7 +38,7 @@ function App({ isInitiallyLogged }) {
         </Route>
         <Redirect to="/404" />
       </Switch>
-    </AuthProvider>
+    //</AuthProvider>
   );
 }
 

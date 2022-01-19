@@ -1,4 +1,8 @@
-import React from 'react';
+
+
+//////Todo lo relativo a si el usuario está loggeado o no, se guarda en el store de redux
+
+/*import React from 'react';
 import T from 'prop-types';
 
 const AuthContext = React.createContext();
@@ -23,3 +27,4 @@ AuthProvider.defaultProps = {
 };
 
 export default AuthContext;
+*/

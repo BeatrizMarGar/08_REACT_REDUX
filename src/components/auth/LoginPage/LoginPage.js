@@ -5,9 +5,16 @@ import { useAuthContext } from '../context';
 import { login } from '../service';
 import LoginForm from './LoginForm';
 import useMutation from '../../../hooks/useMutation';
+import { useSelector, useDispatch } from 'react-redux';
+import { authLogin } from '../../../store/actions';
 
 function LoginPage({ location, history }) {
-  const { handleLogin } = useAuthContext();
+  const dispatch = useDispatch();
+  
+  const handleLogin = () => {
+    login().then(() => dispatch(authLogin()))
+  }
+
   const { isLoading, error, execute, resetError } = useMutation(login);
 
   const handleSubmit = credentials => {

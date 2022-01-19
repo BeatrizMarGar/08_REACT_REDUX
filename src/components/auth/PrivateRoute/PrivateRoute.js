@@ -1,8 +1,7 @@
+import {connect} from 'react-redux'
 import { Redirect, Route, useLocation } from 'react-router-dom';
-import { useAuthContext } from '../context';
 
-const PrivateRoute = props => {
-  const { isLogged } = useAuthContext();
+const PrivateRoute = ({isLogged, ...props}) => {
   const location = useLocation();
 
   return isLogged ? (
@@ -12,4 +11,11 @@ const PrivateRoute = props => {
   );
 };
 
-export default PrivateRoute;
+//mapstate se ejecuta cada vez que haya un cambio de estado
+const mapStateToProps = (state) => {
+  return {
+    isLogged: state.auth,
+  }
+}
+
+export default connect(mapStateToProps)(PrivateRoute);
