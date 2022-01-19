@@ -32,8 +32,8 @@ const dispatch = useDispatch();
   }
 
   const filteredAdverts = filterAdverts(adverts, filters);
-  const ads_storage = dispatch(adsLoaded(adverts, filters));
-  const saved = storage.set('ads_saved', filteredAdverts)
+  const ads_storage = dispatch(adsLoaded(adverts));
+  //const saved = storage.set('ads_saved', filteredAdverts)
 
   return (
     <Layout>
