@@ -13,7 +13,7 @@ function NewAdvertPage({ history }) {
   const handleSubmit = newAdvert => {
     mutation
       .execute(newAdvert)
-      .then(({ id }) => history.push(`/adverts/${id}`));
+      .then(({ id }) => history.push(`/adverts/${id}`))
   };
 
   if (mutation.error?.statusCode === 401) {
