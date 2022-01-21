@@ -39,7 +39,7 @@ const AuthButton = () => {
 };
 
 AuthButton.propTypes = {
-  handleLogout: T.func.isRequired,
+ // handleLogout: T.func.isRequired,
   isLogged: T.bool,
 };
 

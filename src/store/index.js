@@ -2,8 +2,13 @@
 import { createStore, combineReducers, applyMiddleware } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import * as reducers from './reducers'
+import * as auth from '../components/auth/service'
+import * as ads from '../components/auth/service'
+import thunk from 'redux-thunk';
 
 const rootReducer = combineReducers(reducers)
+
+const api = {auth, ads}
 
 //const logger = store => next => action => {}
 
@@ -17,6 +22,8 @@ function logger(store) {
     }
 }
 
+/*
+se sustituye con redux thunk npm install redux-thunk
 
 function thunk(store){
     return function (next){
@@ -28,9 +35,11 @@ function thunk(store){
         }
     }
 }
+*/ 
 
-const configureStore = (preloadedState) => {
-    const store = createStore(rootReducer, preloadedState, composeWithDevTools(applyMiddleware(thunk, logger)))
+const configureStore = (preloadedState, {history}) => {
+    const middleware = [thunk.withExtraArgument({ api, history}), logger]
+    const store = createStore(rootReducer, preloadedState, composeWithDevTools(applyMiddleware( ...middleware)))
     store.subscribe(() => console.log(store.getState()))
     return store;
 }

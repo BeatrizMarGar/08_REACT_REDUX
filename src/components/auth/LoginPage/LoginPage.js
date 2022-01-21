@@ -4,31 +4,30 @@ import T from 'prop-types';
 import { login } from '../service';
 import LoginForm from './LoginForm';
 import useMutation from '../../../hooks/useMutation';
-import { useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import {  authLogin } from '../../../store/actions';
+import { getUi } from '../../../store/selectors'
 
-function LoginPage({ location, history }) {
+function LoginPage() {
   const dispatch = useDispatch();
   
   const { isLoading, error, execute, resetError } = useMutation(login);
   
-  /*
-  const handleLogin = (credentials) => {
-    login()
-      .then(credentials => dispatch(authLogin(credentials)))
-      console.log(credentials)
-      debugger
-  }
-*/
+  //const isLoading = useSelector(getUi)
+
+ // const ownpr = {location, history}
 
   const handleSubmit = credentials => {
     dispatch(authLogin(credentials))
     execute(credentials)
+    /*
       .then(console.log(credentials))
+
       .then(() => {
         const { from } = location.state || { from: { pathname: '/' } };
         history.replace(from);
       });
+      */
   };
 
   return (
