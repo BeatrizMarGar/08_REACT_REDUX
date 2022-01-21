@@ -24,6 +24,7 @@ describe('auth', () => {
         expect(auth(initialState, action)).toEqual(initialState)
     });
 })
+
 /*
 describe ('tags', () => {
     test('should manage tags loaded - TAGS_LOADED', () => {

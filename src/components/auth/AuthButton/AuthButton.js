@@ -10,7 +10,7 @@ import { authLogout } from '../../../store/actions';
 import { getIsLogged } from '../../../store/selectors'
 
 
-const AuthButton = ({ handleLogou }) => {
+const AuthButton = () => {
 //const AuthButton = ({ handleLogout }) => {
   const mutation = useMutation(logout);
   
