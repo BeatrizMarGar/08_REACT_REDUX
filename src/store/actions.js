@@ -1,9 +1,17 @@
-import { ADS_LOADED, AUTH_LOGIN, AUTH_LOGOUT, TAGS_LOADED } from "./types";
+import { login } from "../components/auth/service";
+import { ADS_LOADED, AUTH_LOGIN, AUTH_LOGIN_FAILURE, AUTH_LOGIN_REQUEST, AUTH_LOGIN_SUCCESS, AUTH_LOGOUT, TAGS_LOADED } from "./types";
 
-export function authLogin(){
-    console.log("logeado")
-    return {
-        type: AUTH_LOGIN,
+export function authLogin(credentials){
+    console.log(credentials + " auth")
+    
+    return async function (dispatch, getState){
+        dispatch(authLoginRequest())
+        try{
+            await login(credentials)
+            dispatch(authLoginSuccess())
+        } catch (error) {
+            dispatch(authLoginFailure(error))
+        }
     };
 }
 
@@ -26,4 +34,29 @@ export function tagsLoaded (tags) {
         type: TAGS_LOADED,
         payload: tags,
     }
+}
+
+/*
+*/
+
+export function authLoginRequest(){
+    return {
+        type: AUTH_LOGIN_REQUEST,
+        //no necesito payload 
+    };
+}
+export function authLoginSuccess(){
+    return {
+        type: AUTH_LOGIN_SUCCESS,
+        //no necesito payload
+    };
+}
+export function authLoginFailure(error){
+    console.log("error " + error)
+    return {
+        type: AUTH_LOGIN_FAILURE,
+        //añado payload con info del error
+        error: true,
+        payload: error,
+    };
 }
