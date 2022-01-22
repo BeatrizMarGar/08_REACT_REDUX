@@ -30,7 +30,7 @@ export const reducer = (state = defaultState, action) => {
 }
 */
 
-export function auth(state = defaultState.auth, action){
+export function auth(authstate = defaultState.auth, action){
 //devolverá un true o false para el combinedreducer
     switch (action.type){
         //case AUTH_LOGIN:
@@ -39,25 +39,23 @@ export function auth(state = defaultState.auth, action){
         case AUTH_LOGOUT:
             return false;
         default:
-            return state;
+            return authstate;
     }
 }
 
 
 export function ads(adsState = defaultState.ads, action) {
     switch (action.type){
+        
         case ADS_LOADED_REQUEST:
             return [adsState, action.payload];
         case AD_LOADED_SUCCESS:
         case AD_CREATED_SUCCESS:
-            return { ...adsState, data: [adsState.data, action.payload]}
+            return { ...adsState, data: [...adsState.data, action.payload]}
         case ADS_LOADED:
             return {loaded: true, data: action.payload};
-        /*case ADS_CREATED:
-            return [...adsState, action.payload]
-        */
         case ADS_LOADED_FAILURE:
-            return ''
+            return adsState
         default:
             return adsState;
     }

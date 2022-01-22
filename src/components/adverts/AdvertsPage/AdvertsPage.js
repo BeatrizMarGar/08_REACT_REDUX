@@ -27,7 +27,8 @@ const ads = useSelector(getAdverts_sel)
 
   React.useEffect(() => {
     saveFilters(filters);
-    dispatch(loadAds(ads))
+    //dispatch(loadAds(ads))
+    dispatch(loadAds())
     console.log("loadads")
   }, [dispatch]);
 

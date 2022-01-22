@@ -5,7 +5,6 @@ import { AD_LOADED_SUCCESS, AD_LOADED_FAILURE, AD_LOADED_REQUEST, ADS_LOADED, AU
 
 export function authLogin(credentials){
     return async function (dispatch, getState, { api, history }){
-        //return async function (dispatch, getState, { api }){
         dispatch(authLoginRequest())
         try{
             await api.auth.login(credentials)
@@ -19,7 +18,6 @@ export function authLogin(credentials){
 }
 
 export function authLogout(){
-    console.log("fuera")
     return{
         type: AUTH_LOGOUT,
     }
@@ -145,6 +143,7 @@ export function adCreated(ad) {
         payload: ad
     }
 }
+
 
 export function createAd(ad){
     return async function (dispatch, getState, {api}){

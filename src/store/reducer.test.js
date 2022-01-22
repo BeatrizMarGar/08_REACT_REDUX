@@ -1,14 +1,14 @@
 import { auth } from './reducers'
-import { AUTH_LOGIN, AUTH_LOGOUT, TAGS_LOADED } from './types'
+import { AUTH_LOGIN, AUTH_LOGIN_SUCCESS, AUTH_LOGOUT, TAGS_LOADED } from './types'
 
 // TESTEO UN REDUCER
 
 describe('auth', () => {
-    test('should manage AUTH_LOGIN action', () => {
+    test('should manage AUTH_LOGIN_SUCCESS action', () => {
         const action = {
-            type: AUTH_LOGIN
+            type: AUTH_LOGIN_SUCCESS
         }
-        expect(auth(undefined, action)).toEqual(true)
+        expect(auth(undefined, action)).toBe(true)
     });
     test('should manage AUTH_LOGOUT action', () => {
         const action = {
@@ -24,7 +24,6 @@ describe('auth', () => {
         expect(auth(initialState, action)).toEqual(initialState)
     });
 })
-
 /*
 describe ('tags', () => {
     test('should manage tags loaded - TAGS_LOADED', () => {

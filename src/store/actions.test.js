@@ -1,14 +1,14 @@
-import { authLogin, authLogout, adsLoaded } from './actions'
-import { ADS_LOADED, AUTH_LOGIN, AUTH_LOGOUT } from "./types";
+import { authLogin, authLogout, adsLoaded, authLoginRequest } from './actions'
+import { ADS_LOADED, AUTH_LOGIN, AUTH_LOGIN_REQUEST, AUTH_LOGOUT } from "./types";
 
 // TESTEO ACCIÓN SÍNCRONA
 
 describe('authLogin y authLogout', () => {
-    test('should return an action with type AUTH_LOGIN', () =>  {
+    test('should return an action with type AUTH_LOGIN_REQUEST', () =>  {
         const expectedResult = {
-            type: AUTH_LOGIN
+            type: AUTH_LOGIN_REQUEST
         }
-        const result = authLogin()
+        const result = authLoginRequest()
         expect(result).toEqual(expectedResult)
     });
     test('should return an action with type AUTH_LOGOUT', () =>  {
@@ -30,6 +30,7 @@ describe('adsLoaded', () => {
         expect(adsLoaded(ads)).toEqual(expectedResult)
     })
 })
+
 /*
 // TESTEO ACCIÓN ASÍNCRONA
 
