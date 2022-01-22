@@ -1,9 +1,13 @@
-import { getAdverts_sel } from './selectors'
-// TESTEO UN SELECTOR
+import { getAd } from "./selectors";
 
-describe('getAdverts_sel', () => {
-    test('should return the ads', () => {
-        const expectedResult = {}
-        expect().toEqual(expectedResult)
+describe('GetAd', ()=>{
+    test('should do', () => {
+        const data = [{id: 1}, { id:2}]
+        const state = {
+            ads:{
+                data,
+            },
+        };
+        expect(getAd(state, 2)).toEqual(data[0[1]])
     })
 })
