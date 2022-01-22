@@ -47,7 +47,7 @@ export function ads(adsState = defaultState.ads, action) {
             console.log("ads request")
             return [...adsState, action.payload];
         case AD_LOADED_SUCCESS:
-            debugger
+            
             return [ ...adsState, action.payload]
         case ADS_LOADED:
             return action.payload;

@@ -85,7 +85,6 @@ export function uiResetError(){
 
 export function loadAds(){
     //DISPATCH LOADADSREQUEST
-    debugger
     return async function(dispatch, getState, { api }){
         dispatch(adsRequest())
         try{
@@ -99,7 +98,7 @@ export function loadAds(){
 }
 
 export function adLoaded(ad){
-    debugger
+    
     return {
         type: AD_LOADED_SUCCESS,
         payload: ad,
@@ -107,7 +106,7 @@ export function adLoaded(ad){
 }
 
 export function loadSingleAd(AdvertId){
-    debugger
+    
         return async function (dispatch, getState, {api}){
         //dispatch loadadrequ
         try{
