@@ -1,6 +1,6 @@
 //saber si el user está logueado
 import { combineReducers } from "redux"
-import { ADS_LOADED, AUTH_LOGIN, AUTH_LOGIN_FAILURE, AUTH_LOGIN_REQUEST, AUTH_LOGIN_SUCCESS, AUTH_LOGOUT, TAGS_LOADED } from "./types"
+import { ADS_LOADED, ADS_LOADED_FAILURE, AUTH_LOGIN_FAILURE, AUTH_LOGIN_REQUEST, AUTH_LOGIN_SUCCESS, AUTH_LOGOUT, TAGS_LOADED, UI_RESET_ERROR, ADS_LOADED_REQUEST } from "./types"
 
 const defaultState = {
     auth: false, //por defecto el usuario no está logeado
@@ -43,11 +43,15 @@ export function auth(state = defaultState.auth, action){
 
 export function ads(adsState = defaultState.ads, action) {
     switch (action.type){
+        case ADS_LOADED_REQUEST:
+            return ''
         case ADS_LOADED:
             return action.payload;
         /*case ADS_CREATED:
             return [...adsState, action.payload]
         */
+        case ADS_LOADED_FAILURE:
+            return ''
         default:
             return adsState;
     }
@@ -77,14 +81,17 @@ export function ui(uiState = defaultState.ui, action){
             console.log("request")
             return {isLoading: true, error: null};
         case AUTH_LOGIN_SUCCESS:
+        case ADS_LOADED:
             //cambio en auth y ui
             console.log("success")
             return {isLoading: false, error: null};
         case AUTH_LOGIN_FAILURE:
             //cambio en auth y ui
             return {isLoading: false, error: action.payload};
+        case UI_RESET_ERROR: 
+            return { ...uiState, error: null}
         default:
-            return {uiState}
+            return uiState
     }
 }
 

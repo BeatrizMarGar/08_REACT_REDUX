@@ -3,6 +3,8 @@ import T from 'prop-types';
 import { Link } from 'react-router-dom';
 
 import { advert } from '../propTypes';
+import { connect, useSelector } from 'react-redux';
+import { getAd } from '../../../store/selectors';
 
 function Advert({ name, sale, price, tags }) {
   return (

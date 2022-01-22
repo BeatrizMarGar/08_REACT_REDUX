@@ -11,7 +11,7 @@ import { defaultFilters, filterAdverts } from './filters';
 import useQuery from '../../../hooks/useQuery';
 import { connect } from 'react-redux';
 import { useDispatch } from 'react-redux';
-import { adsLoaded } from '../../../store/actions';
+import { adsLoaded, loadAds } from '../../../store/actions';
 import { getAdverts_sel } from '../../../store/selectors';
 
 const getFilters = () => storage.get('filters') || defaultFilters;
@@ -25,14 +25,15 @@ const dispatch = useDispatch();
 
   React.useEffect(() => {
     saveFilters(filters);
-  }, [filters]);
+    dispatch(loadAds())
+  }, []);
 
   if (error?.statusCode === 401) {
     return <Redirect to="/login" />;
   }
 
   const filteredAdverts = filterAdverts(adverts, filters);
-  const ads_storage = dispatch(adsLoaded(adverts));
+  //const ads_storage = dispatch(adsLoaded(adverts));
 
   return (
     <Layout>

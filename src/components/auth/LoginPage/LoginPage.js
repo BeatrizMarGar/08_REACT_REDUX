@@ -5,17 +5,22 @@ import { login } from '../service';
 import LoginForm from './LoginForm';
 import useMutation from '../../../hooks/useMutation';
 import { useSelector, useDispatch } from 'react-redux';
-import {  authLogin } from '../../../store/actions';
+import {  authLogin, uiResetError } from '../../../store/actions';
 import { getUi } from '../../../store/selectors'
 
-function LoginPage() {
+import { connect } from 'react-redux';
+
+
+function LoginPage( { isLoading, error }) {
   const dispatch = useDispatch();
   
-  const { isLoading, error, execute, resetError } = useMutation(login);
-  
-  //const isLoading = useSelector(getUi)
+  const { execute } = useMutation(login);
 
  // const ownpr = {location, history}
+
+const resetError = () => {
+    dispatch(uiResetError())
+}
 
   const handleSubmit = credentials => {
     dispatch(authLogin(credentials))
@@ -29,6 +34,8 @@ function LoginPage() {
       });
       */
   };
+
+
 
   return (
     <div>
@@ -49,4 +56,12 @@ LoginPage.propTypes = {
   history: T.shape({ replace: T.func.isRequired }).isRequired,
 };
 
-export default LoginPage;
+const mapStatetoProps = state => {
+  return getUi(state)
+}
+
+const ConnectedLoginPage = connect(
+  mapStatetoProps,
+)(LoginPage);
+
+export default ConnectedLoginPage;

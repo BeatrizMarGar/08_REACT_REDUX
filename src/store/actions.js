@@ -1,5 +1,6 @@
 
-import { ADS_LOADED, AUTH_LOGIN, AUTH_LOGIN_FAILURE, AUTH_LOGIN_REQUEST, AUTH_LOGIN_SUCCESS, AUTH_LOGOUT, TAGS_LOADED } from "./types";
+import { func } from "prop-types";
+import { ADS_LOADED, AUTH_LOGIN, AUTH_LOGIN_FAILURE, AUTH_LOGIN_REQUEST, AUTH_LOGIN_SUCCESS, AUTH_LOGOUT, TAGS_LOADED, UI_RESET_ERROR, ADS_LOADED_SUCCESS } from "./types";
 
 export function authLogin(credentials){
     
@@ -38,9 +39,6 @@ export function tagsLoaded (tags) {
     }
 }
 
-/*
-*/
-
 export function authLoginRequest(){
     return {
         type: AUTH_LOGIN_REQUEST,
@@ -60,5 +58,24 @@ export function authLoginFailure(error){
         //añado payload con info del error
         error: true,
         payload: error,
+    };
+}
+
+export function uiResetError(){
+    console.log("hola")
+    return {
+        type: UI_RESET_ERROR
+    }
+}
+
+export function loadAds(){
+    //DISPATCH LOADADSREQUEST
+    return async function(dispatch, getState, { api }){
+        try{
+            const ads = await api.ads.getAdverts()
+            dispatch(adsLoaded(ads))
+        } catch (error) {
+            //DISPATCH LOADADSFAILURE
+        }
     };
 }

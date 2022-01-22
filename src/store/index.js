@@ -3,7 +3,7 @@ import { createStore, combineReducers, applyMiddleware } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import * as reducers from './reducers'
 import * as auth from '../components/auth/service'
-import * as ads from '../components/auth/service'
+import * as ads from '../components/adverts/service'
 import thunk from 'redux-thunk';
 
 const rootReducer = combineReducers(reducers)
