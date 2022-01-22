@@ -44,7 +44,9 @@ export function auth(state = defaultState.auth, action){
 export function ads(adsState = defaultState.ads, action) {
     switch (action.type){
         case ADS_LOADED_REQUEST:
-            return ''
+            console.log("ads request")
+            debugger
+            return [...adsState, action.payload];
         case ADS_LOADED:
             return action.payload;
         /*case ADS_CREATED:
@@ -77,6 +79,7 @@ function combinedReducer(state = defaultState, action){
 export function ui(uiState = defaultState.ui, action){
     switch (action.type) {
         case AUTH_LOGIN_REQUEST:
+        case ADS_LOADED_REQUEST:
             //solo cambio en ui
             console.log("request")
             return {isLoading: true, error: null};
@@ -86,6 +89,7 @@ export function ui(uiState = defaultState.ui, action){
             console.log("success")
             return {isLoading: false, error: null};
         case AUTH_LOGIN_FAILURE:
+        case ADS_LOADED_FAILURE:
             //cambio en auth y ui
             return {isLoading: false, error: action.payload};
         case UI_RESET_ERROR: 

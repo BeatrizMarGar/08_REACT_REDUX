@@ -1,9 +1,8 @@
 
 import { func } from "prop-types";
-import { ADS_LOADED, AUTH_LOGIN, AUTH_LOGIN_FAILURE, AUTH_LOGIN_REQUEST, AUTH_LOGIN_SUCCESS, AUTH_LOGOUT, TAGS_LOADED, UI_RESET_ERROR, ADS_LOADED_SUCCESS } from "./types";
+import { ADS_LOADED, AUTH_LOGIN, AUTH_LOGIN_FAILURE, AUTH_LOGIN_REQUEST, AUTH_LOGIN_SUCCESS, AUTH_LOGOUT, TAGS_LOADED, UI_RESET_ERROR, ADS_LOADED_SUCCESS, ADS_LOADED_REQUEST, ADS_LOADED_FAILURE } from "./types";
 
 export function authLogin(credentials){
-    
     return async function (dispatch, getState, { api, history }){
         //return async function (dispatch, getState, { api }){
         dispatch(authLoginRequest())
@@ -61,6 +60,22 @@ export function authLoginFailure(error){
     };
 }
 
+
+export function adsRequest(){
+    return {
+        type: ADS_LOADED_REQUEST,
+        //no necesito payload 
+    };
+}
+export function adsFailure(error){
+    console.log("error " + error)
+    return {
+        type: ADS_LOADED_FAILURE,
+        //añado payload con info del error
+        error: true,
+        payload: error,
+    };
+}
 export function uiResetError(){
     console.log("hola")
     return {
@@ -71,10 +86,13 @@ export function uiResetError(){
 export function loadAds(){
     //DISPATCH LOADADSREQUEST
     return async function(dispatch, getState, { api }){
+        dispatch(adsRequest())
         try{
             const ads = await api.ads.getAdverts()
+            debugger
             dispatch(adsLoaded(ads))
         } catch (error) {
+            dispatch(adsFailure(error))
             //DISPATCH LOADADSFAILURE
         }
     };
