@@ -7,22 +7,24 @@ import { getAdvert, deleteAdvert } from '../service';
 import useQuery from '../../../hooks/useQuery';
 import useMutation from '../../../hooks/useMutation';
 import { connect, useSelector } from 'react-redux';
-import { getAd } from '../../../store/selectors';
+import { getAd, getUi } from '../../../store/selectors';
+import { advert } from '../propTypes';
 
 function AdvertPage() {
   const { advertId } = useParams();
   const history = useHistory();
   const getAdvertById = React.useCallback(
     () => getAdvert(advertId),
-    
-useSelector(getAd(advertId))
     [advertId],
   );
+
+//const HandlegetAd = useSelector(getAd(...state, advertId))
+/*  React.useEffect(() => {
+    getAdvertById()
+  });
+*/
   const { isLoading, error, data: advert } = useQuery(getAdvertById);
   const mutation = useMutation(deleteAdvert);
-
-console.log(advertId)
-
 
   const handleDelete = () => {
     mutation.execute(advertId).then(() => history.push('/'));
@@ -37,16 +39,16 @@ console.log(advertId)
   }
 
   return (
+
     <Layout>
       {advert && <AdvertDetail {...advert} onDelete={handleDelete} />}
     </Layout>
   );
 }
 
-export default AdvertPage;
+const mapStateToProps = (state, ownProps) => ({
+  ads: getAd(state, ownProps),
+  ...getUi(state),
+})
 
-/*
-const mapStatetoProps = (state, advertId) => ({
-  advert: getAd(state, advertId)
-}) 
-export default connect(mapStatetoProps)(AdvertPage);*/
+export default connect(mapStateToProps)(AdvertPage);
