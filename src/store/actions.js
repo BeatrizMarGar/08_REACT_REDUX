@@ -1,7 +1,7 @@
 
 import { func } from "prop-types";
-import { getAd } from "./selectors";
-import { AD_LOADED_SUCCESS, AD_LOADED_FAILURE, AD_LOADED_REQUEST, ADS_LOADED, AUTH_LOGIN, AUTH_LOGIN_FAILURE, AUTH_LOGIN_REQUEST, AUTH_LOGIN_SUCCESS, AUTH_LOGOUT, TAGS_LOADED, UI_RESET_ERROR, ADS_LOADED_SUCCESS, ADS_LOADED_REQUEST, ADS_LOADED_FAILURE } from "./types";
+import { areAdsLoaded, getAd, getAdverts_sel } from "./selectors";
+import { AD_LOADED_SUCCESS, AD_LOADED_FAILURE, AD_LOADED_REQUEST, ADS_LOADED, AUTH_LOGIN, AUTH_LOGIN_FAILURE, AUTH_LOGIN_REQUEST, AUTH_LOGIN_SUCCESS, AUTH_LOGOUT, TAGS_LOADED, UI_RESET_ERROR, ADS_LOADED_SUCCESS, ADS_LOADED_REQUEST, ADS_LOADED_FAILURE, AD_CREATED_REQUEST, AD_CREATED_SUCCESS } from "./types";
 
 export function authLogin(credentials){
     return async function (dispatch, getState, { api, history }){
@@ -95,15 +95,17 @@ export function uiResetError(){
 }
 
 export function loadAds(){
-    //DISPATCH LOADADSREQUEST
     return async function(dispatch, getState, { api }){
+        const knowloadads = areAdsLoaded(getState())
+        if(knowloadads){
+            return;
+        }
         dispatch(adsRequest())
         try{
             const ads = await api.ads.getAdverts()
             dispatch(adsLoaded(ads))
         } catch (error) {
             dispatch(adsFailure(error))
-            //DISPATCH LOADADSFAILURE
         }
     };
 }
@@ -118,7 +120,7 @@ export function adLoaded(ad){
 
 export function loadSingleAd(AdvertId){
     
-        return async function (dispatch, getState, {api}){
+        return async function (dispatch, getState, {api, history}){
             const ad = getAd(getState(), AdvertId)
             if (ad) {
                 return;
@@ -130,7 +132,32 @@ export function loadSingleAd(AdvertId){
         }
         catch (error) {
             dispatch(loadAdFailure(error))
+            if(error.status === 404){
+                history.push('/404')
+            }
         }
     }
-
 }
+
+export function adCreated(ad) {
+    return {
+        type: AD_CREATED_SUCCESS,
+        payload: ad
+    }
+}
+
+export function createAd(ad){
+    return async function (dispatch, getState, {api}){
+        //request
+        try {
+            const newAd = await api.ads.createAdvert(ad)
+            const createdAd = await api.ads.getAdvert(newAd)
+            dispatch(adCreated(createdAd))
+            //history.push
+        } catch (error) {
+            //failure
+        }
+    }
+    
+}
+

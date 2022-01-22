@@ -9,7 +9,7 @@ import storage from '../../../utils/storage';
 import { getAdverts } from '../service';
 import { defaultFilters, filterAdverts } from './filters';
 import useQuery from '../../../hooks/useQuery';
-import { connect } from 'react-redux';
+import { connect, useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { adsLoaded, loadAds } from '../../../store/actions';
 import { getAdverts_sel } from '../../../store/selectors';
@@ -23,11 +23,13 @@ const dispatch = useDispatch();
   const { isLoading, error, data: adverts = [] } = useQuery(getAdverts);
   const [filters, setFilters] = React.useState(getFilters);
 
+const ads = useSelector(getAdverts_sel)
+
   React.useEffect(() => {
     saveFilters(filters);
-    dispatch(loadAds())
+    dispatch(loadAds(ads))
     console.log("loadads")
-  }, []);
+  }, [dispatch]);
 
   if (error?.statusCode === 401) {
     return <Redirect to="/login" />;

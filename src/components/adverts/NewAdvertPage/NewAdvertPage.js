@@ -6,11 +6,15 @@ import { createAdvert } from '../service';
 import Layout from '../../layout';
 import NewAdvertForm from './NewAdvertForm';
 import useMutation from '../../../hooks/useMutation';
+import { useDispatch } from 'react-redux';
+import { createAd } from '../../../store/actions';
 
 function NewAdvertPage({ history }) {
+  const dispatch = useDispatch()
   const mutation = useMutation(createAdvert);
 
   const handleSubmit = newAdvert => {
+    dispatch(createAd(newAdvert))
     mutation
       .execute(newAdvert)
       .then(({ id }) => history.push(`/adverts/${id}`))

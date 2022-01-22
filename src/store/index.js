@@ -5,6 +5,7 @@ import * as reducers from './reducers'
 import * as auth from '../components/auth/service'
 import * as ads from '../components/adverts/service'
 import thunk from 'redux-thunk';
+import { connectRouter, routerMiddleware } from 'connected-react-router';
 
 const rootReducer = combineReducers(reducers)
 
@@ -38,8 +39,8 @@ function thunk(store){
 */ 
 
 const configureStore = (preloadedState, {history}) => {
-    const middleware = [thunk.withExtraArgument({ api, history}), logger]
-    const store = createStore(rootReducer, preloadedState, composeWithDevTools(applyMiddleware( ...middleware)))
+    const middleware = [routerMiddleware(history), thunk.withExtraArgument({ api, history}), logger]
+    const store = createStore(combineReducers({...reducers, router: connectRouter(history)}), preloadedState, composeWithDevTools(applyMiddleware( ...middleware)))
    // store.subscribe(() => console.log(store.getState()))
     return store;
 }

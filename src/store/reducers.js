@@ -1,10 +1,13 @@
 //saber si el user está logueado
 import { combineReducers } from "redux"
-import { ADS_LOADED, ADS_LOADED_FAILURE, AUTH_LOGIN_FAILURE, AUTH_LOGIN_REQUEST, AUTH_LOGIN_SUCCESS, AUTH_LOGOUT, TAGS_LOADED, UI_RESET_ERROR, ADS_LOADED_REQUEST, AD_LOADED_SUCCESS, AD_LOADED_FAILURE, AD_LOADED_REQUEST } from "./types"
+import { ADS_LOADED, ADS_LOADED_FAILURE, AUTH_LOGIN_FAILURE, AUTH_LOGIN_REQUEST, AUTH_LOGIN_SUCCESS, AUTH_LOGOUT, TAGS_LOADED, UI_RESET_ERROR, ADS_LOADED_REQUEST, AD_LOADED_SUCCESS, AD_LOADED_FAILURE, AD_LOADED_REQUEST, AD_CREATED_SUCCESS } from "./types"
 
 const defaultState = {
     auth: false, //por defecto el usuario no está logeado
-    ads: [],
+    ads: {
+        loaded: false,
+        data: []
+    },
     tags: [],
     ui: {
         isLoading: false,
@@ -44,11 +47,12 @@ export function auth(state = defaultState.auth, action){
 export function ads(adsState = defaultState.ads, action) {
     switch (action.type){
         case ADS_LOADED_REQUEST:
-            return [...adsState, action.payload];
+            return [adsState, action.payload];
         case AD_LOADED_SUCCESS:
-            return [ adsState, action.payload]
+        case AD_CREATED_SUCCESS:
+            return { ...adsState, data: [adsState.data, action.payload]}
         case ADS_LOADED:
-            return action.payload;
+            return {loaded: true, data: action.payload};
         /*case ADS_CREATED:
             return [...adsState, action.payload]
         */
