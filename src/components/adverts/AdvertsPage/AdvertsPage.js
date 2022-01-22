@@ -26,6 +26,7 @@ const dispatch = useDispatch();
   React.useEffect(() => {
     saveFilters(filters);
     dispatch(loadAds())
+    console.log("loadads")
   }, []);
 
   if (error?.statusCode === 401) {

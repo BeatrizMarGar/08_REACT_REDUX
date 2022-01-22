@@ -17,7 +17,7 @@ function logger(store) {
         return function (action) {
             console.log(action)
             next(action);
-            console.log(store.getState())
+            //console.log(store.getState())
         }
     }
 }

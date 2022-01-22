@@ -11,7 +11,12 @@ function SelectTags(props) {
   const dispatch = useDispatch();
   const { data: tags = [] } = useQuery(getTags);
   
-  const tags_storage = dispatch(tagsLoaded(tags));
+  
+React.useEffect(() => {
+   dispatch(tagsLoaded(tags));
+   console.log("tags")
+}, []);
+
 
   return <CheckboxGroup options={tags} {...props} />;
 }
