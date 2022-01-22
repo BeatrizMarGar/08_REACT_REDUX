@@ -40,7 +40,7 @@ function thunk(store){
 const configureStore = (preloadedState, {history}) => {
     const middleware = [thunk.withExtraArgument({ api, history}), logger]
     const store = createStore(rootReducer, preloadedState, composeWithDevTools(applyMiddleware( ...middleware)))
-    store.subscribe(() => console.log(store.getState()))
+   // store.subscribe(() => console.log(store.getState()))
     return store;
 }
 

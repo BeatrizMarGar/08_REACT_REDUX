@@ -9,13 +9,13 @@ import { useDispatch } from 'react-redux';
 function SelectTags(props) {
 
   const dispatch = useDispatch();
+  
   const { data: tags = [] } = useQuery(getTags);
   
   
-React.useEffect(() => {
+//React.useEffect(() => {
    dispatch(tagsLoaded(tags));
-   console.log("tags")
-}, []);
+//}, []);
 
 
   return <CheckboxGroup options={tags} {...props} />;

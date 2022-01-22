@@ -1,5 +1,6 @@
 
 import { func } from "prop-types";
+import { getAd } from "./selectors";
 import { AD_LOADED_SUCCESS, AD_LOADED_FAILURE, AD_LOADED_REQUEST, ADS_LOADED, AUTH_LOGIN, AUTH_LOGIN_FAILURE, AUTH_LOGIN_REQUEST, AUTH_LOGIN_SUCCESS, AUTH_LOGOUT, TAGS_LOADED, UI_RESET_ERROR, ADS_LOADED_SUCCESS, ADS_LOADED_REQUEST, ADS_LOADED_FAILURE } from "./types";
 
 export function authLogin(credentials){
@@ -76,6 +77,16 @@ export function adsFailure(error){
         payload: error,
     };
 }
+
+export function loadAdFailure(error){
+    console.log("error " + error)
+    return {
+        type: AD_LOADED_FAILURE,
+        //añado payload con info del error
+        error: true,
+        payload: error,
+    };
+}
 export function uiResetError(){
     console.log("hola")
     return {
@@ -108,12 +119,18 @@ export function adLoaded(ad){
 export function loadSingleAd(AdvertId){
     
         return async function (dispatch, getState, {api}){
+            const ad = getAd(getState(), AdvertId)
+            if (ad) {
+                return;
+            }
         //dispatch loadadrequ
         try{
             const ad = await api.ads.getAdvert(AdvertId)
             dispatch(adLoaded(ad))
         }
-        catch (error) {}
+        catch (error) {
+            dispatch(loadAdFailure(error))
+        }
     }
 
 }
