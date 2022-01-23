@@ -12,6 +12,7 @@ const api = {auth, ads}
 function logger(store) {
     return function (next){
         return function (action) {
+            console.log(action)
             next(action);
         }
     }
@@ -35,10 +36,8 @@ function thunk(store){
 const configureStore = (preloadedState, {history}) => {
     const middleware = [routerMiddleware(history), thunk.withExtraArgument({ api, history}), logger]
     const store = createStore(combineReducers({...reducers, router: connectRouter(history)}), preloadedState, composeWithDevTools(applyMiddleware( ...middleware)))
+    //store.subscribe(() => console.log(store.getState()))
     return store;
 }
-
-//export default configureStore;
-//cada reducer va a una parte concreta del estado
 
 export default configureStore;
