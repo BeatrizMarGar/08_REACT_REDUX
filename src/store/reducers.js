@@ -46,7 +46,6 @@ export function auth(authstate = defaultState.auth, action){
 export function ads(adsState = defaultState.ads, action) {
     switch (action.type){
         case ADS_LOADED_REQUEST:
-        case AD_DELETED_REQUEST:
             return [adsState, action.payload];
         case AD_LOADED_SUCCESS:
         case AD_CREATED_SUCCESS:
@@ -55,6 +54,7 @@ export function ads(adsState = defaultState.ads, action) {
         case ADS_LOADED:
             return {loaded: true, data: action.payload};
         case ADS_LOADED_FAILURE:
+        case AD_DELETED_FAILURE:
             return adsState
         default:
             return adsState;
@@ -77,6 +77,7 @@ export function ui(uiState = defaultState.ui, action){
         case AUTH_LOGIN_REQUEST:
         case ADS_LOADED_REQUEST:
         case AD_LOADED_REQUEST:
+        case AD_DELETED_REQUEST:
             //solo cambio en ui
             return {isLoading: true, error: null};
         case AUTH_LOGIN_SUCCESS:

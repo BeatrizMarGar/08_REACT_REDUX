@@ -1,0 +1,90 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`NewAdvertPage snapshot test 1`] = `
+Array [
+  <header>
+    Nodepop React
+    <nav>
+      <ul>
+        <li>
+          <a
+            aria-current={null}
+            href="/adverts"
+            onClick={[Function]}
+          >
+            Nodepop
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current={null}
+            href="/adverts/new"
+            onClick={[Function]}
+          >
+            New advert
+          </a>
+        </li>
+      </ul>
+    </nav>
+    <button
+      onClick={[Function]}
+    >
+      Logout
+    </button>
+  </header>,
+  <main>
+    <form
+      onSubmit={[Function]}
+    >
+      <input
+        name="name"
+        onChange={[Function]}
+        value=""
+      />
+      <input
+        checked={true}
+        name="sale"
+        onChange={[Function]}
+        type="checkbox"
+      />
+      <input
+        name="price"
+        onChange={[Function]}
+        type="number"
+        value={0}
+      />
+      <div />
+      <input
+        name="photo"
+        onChange={[Function]}
+        style={
+          Object {
+            "display": "none",
+          }
+        }
+        type="file"
+      />
+      <img
+        alt=""
+        height="200"
+        onClick={[Function]}
+        src="placeholder.png"
+        style={
+          Object {
+            "objectFit": "contain",
+          }
+        }
+        width="200"
+      />
+      <button
+        disabled={true}
+      >
+        Save
+      </button>
+    </form>
+  </main>,
+  <footer>
+    @Keepcoding 2021
+  </footer>,
+]
+`;
