@@ -24,15 +24,3 @@ describe('auth', () => {
         expect(auth(initialState, action)).toEqual(initialState)
     });
 })
-/*
-describe ('tags', () => {
-    test('should manage tags loaded - TAGS_LOADED', () => {
-        const action = {
-            type: TAGS_LOADED,
-            payload: ['tags']
-    }
-    const expectedResult = {
-        data
-    })
-})
-*/

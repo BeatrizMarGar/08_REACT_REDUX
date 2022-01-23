@@ -20,3 +20,4 @@ describe('GetAd', ()=>{
         expect(getAd(state, 5)).toBeUndefined(data[0[1]])
     })
 })
+;

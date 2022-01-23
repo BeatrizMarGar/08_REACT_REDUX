@@ -11,13 +11,13 @@ import { getUi } from '../../../store/selectors'
 import { connect } from 'react-redux';
 
 
-function LoginPage( { isLoading, error }) {
-  const dispatch = useDispatch();
+export function LoginPage( { isLoading, error }) {
   
   const { execute } = useMutation(login);
 
  // const ownpr = {location, history}
 
+ const dispatch = useDispatch();
 const resetError = () => {
     dispatch(uiResetError())
 }
@@ -42,13 +42,13 @@ const resetError = () => {
     </div>
   );
 }
-
+/*
 LoginPage.propTypes = {
   location: T.shape({ state: T.shape({ from: T.object.isRequired }) })
     .isRequired,
   history: T.shape({ replace: T.func.isRequired }).isRequired,
 };
-
+*/
 const mapStatetoProps = state => {
   return getUi(state)
 }

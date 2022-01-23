@@ -5,7 +5,7 @@ import useForm from '../../../hooks/useForm';
 const validEmail = ({ email }) => email;
 const validPassword = ({ password }) => password;
 
-function LoginForm({ onSubmit }) {
+export function LoginForm({ onSubmit }) {
   const {
     formValue: credentials,
     handleChange,
@@ -20,9 +20,10 @@ function LoginForm({ onSubmit }) {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <input name="email" value={email} onChange={handleChange} />
+      <input name="email" value={email} onChange={handleChange} alt="email" />
       <input
         type="password"
+        alt="password"
         name="password"
         value={password}
         onChange={handleChange}
@@ -30,6 +31,7 @@ function LoginForm({ onSubmit }) {
       <input
         type="checkbox"
         name="remember"
+        alt="remember"
         checked={remember}
         onChange={handleChange}
       />
