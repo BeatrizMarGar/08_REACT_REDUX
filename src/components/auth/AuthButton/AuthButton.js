@@ -1,6 +1,5 @@
 import { Link } from 'react-router-dom';
 import T from 'prop-types';
-import { connect } from 'react-redux';
 import { ConfirmationButton } from '../../common';
 //import { AuthConsumer } from '../context';
 import { useSelector, useDispatch } from 'react-redux';

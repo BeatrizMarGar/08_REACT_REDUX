@@ -1,6 +1,5 @@
 //saber si el user está logueado
-import { combineReducers } from "redux"
-import { ADS_LOADED, ADS_LOADED_FAILURE, AUTH_LOGIN_FAILURE, AUTH_LOGIN_REQUEST, AUTH_LOGIN_SUCCESS, AUTH_LOGOUT, TAGS_LOADED, UI_RESET_ERROR, ADS_LOADED_REQUEST, AD_LOADED_SUCCESS, AD_LOADED_FAILURE, AD_LOADED_REQUEST, AD_CREATED_SUCCESS } from "./types"
+import { ADS_LOADED, ADS_LOADED_FAILURE, AUTH_LOGIN_FAILURE, AUTH_LOGIN_REQUEST, AUTH_LOGIN_SUCCESS, AUTH_LOGOUT, TAGS_LOADED, UI_RESET_ERROR, ADS_LOADED_REQUEST, AD_LOADED_SUCCESS, AD_LOADED_FAILURE, AD_LOADED_REQUEST, AD_CREATED_SUCCESS, AD_DELETED_FAILURE, AD_DELETED_SUCCESS, AD_DELETED_REQUEST, TAGS_LOADED_REQUEST } from "./types"
 
 const defaultState = {
     auth: false, //por defecto el usuario no está logeado
@@ -46,11 +45,12 @@ export function auth(authstate = defaultState.auth, action){
 
 export function ads(adsState = defaultState.ads, action) {
     switch (action.type){
-        
         case ADS_LOADED_REQUEST:
+        case AD_DELETED_REQUEST:
             return [adsState, action.payload];
         case AD_LOADED_SUCCESS:
         case AD_CREATED_SUCCESS:
+        case AD_DELETED_SUCCESS:
             return { ...adsState, data: [...adsState.data, action.payload]}
         case ADS_LOADED:
             return {loaded: true, data: action.payload};
@@ -63,18 +63,12 @@ export function ads(adsState = defaultState.ads, action) {
 
 export function tags(tagState = defaultState.tags, action) {
     switch (action.type){
+        case TAGS_LOADED_REQUEST:
+            return {tagState}
         case TAGS_LOADED:
-            return action.payload;
+            return {tagState: action.payload};
         default:
             return tagState;
-    }
-}
-
-function combinedReducer(state = defaultState, action){
-
-    return {
-        auth: auth(state.auth, action),
-        ads: ads(state.ads, action)
     }
 }
 
@@ -93,6 +87,7 @@ export function ui(uiState = defaultState.ui, action){
         case AUTH_LOGIN_FAILURE:
         case ADS_LOADED_FAILURE:
         case AD_LOADED_FAILURE:
+        case AD_DELETED_FAILURE:
             //cambio en auth y ui
             return {isLoading: false, error: action.payload};
         case UI_RESET_ERROR: 

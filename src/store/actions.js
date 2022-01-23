@@ -1,7 +1,6 @@
 
-import { func } from "prop-types";
-import { areAdsLoaded, getAd, getAdverts_sel } from "./selectors";
-import { AD_LOADED_SUCCESS, AD_LOADED_FAILURE, AD_LOADED_REQUEST, ADS_LOADED, AUTH_LOGIN, AUTH_LOGIN_FAILURE, AUTH_LOGIN_REQUEST, AUTH_LOGIN_SUCCESS, AUTH_LOGOUT, TAGS_LOADED, UI_RESET_ERROR, ADS_LOADED_SUCCESS, ADS_LOADED_REQUEST, ADS_LOADED_FAILURE, AD_CREATED_REQUEST, AD_CREATED_SUCCESS } from "./types";
+import { areAdsLoaded, getAd} from "./selectors";
+import { AD_LOADED_SUCCESS, AD_LOADED_FAILURE, ADS_LOADED, AUTH_LOGIN_FAILURE, AUTH_LOGIN_REQUEST, AUTH_LOGIN_SUCCESS, AUTH_LOGOUT, TAGS_LOADED, UI_RESET_ERROR, ADS_LOADED_REQUEST, ADS_LOADED_FAILURE, AD_CREATED_SUCCESS, AD_DELETED_SUCCESS, TAGS_LOADED_REQUEST, TAGS_LOADED_FAILURE, AD_LOADED_REQUEST, AD_DELETED_FAILURE, AD_DELETED_REQUEST, AD_CREATED_REQUEST, AD_CREATED_FAILURE } from "./types";
 
 export function authLogin(credentials){
     return async function (dispatch, getState, { api, history }){
@@ -16,6 +15,20 @@ export function authLogin(credentials){
         }
     };
 }
+
+
+export function getAllTags(){
+    return async function (dispatch, getState, { api, history }){
+        dispatch(tagsRequest())
+        try{
+            const result = await api.ads.getTags()
+            dispatch(tagsLoaded(result))
+        } catch (error) {
+            dispatch(tagsFailure(error))
+        }
+    };
+}
+
 
 export function authLogout(){
     return{
@@ -37,6 +50,20 @@ export function tagsLoaded (tags) {
     }
 }
 
+export function tagsRequest (tags) {
+    return {
+        type: TAGS_LOADED_REQUEST,
+        payload: tags,
+    }
+}
+
+export function tagsFailure (tags) {
+    return {
+        type: TAGS_LOADED_FAILURE,
+        payload: tags,
+    }
+}
+
 export function authLoginRequest(){
     return {
         type: AUTH_LOGIN_REQUEST,
@@ -50,7 +77,6 @@ export function authLoginSuccess(){
     };
 }
 export function authLoginFailure(error){
-    console.log("error " + error)
     return {
         type: AUTH_LOGIN_FAILURE,
         //añado payload con info del error
@@ -67,7 +93,6 @@ export function adsRequest(){
     };
 }
 export function adsFailure(error){
-    console.log("error " + error)
     return {
         type: ADS_LOADED_FAILURE,
         //añado payload con info del error
@@ -77,7 +102,6 @@ export function adsFailure(error){
 }
 
 export function loadAdFailure(error){
-    console.log("error " + error)
     return {
         type: AD_LOADED_FAILURE,
         //añado payload con info del error
@@ -86,7 +110,6 @@ export function loadAdFailure(error){
     };
 }
 export function uiResetError(){
-    console.log("hola")
     return {
         type: UI_RESET_ERROR
     }
@@ -116,6 +139,15 @@ export function adLoaded(ad){
     }
 }
 
+export function loadAdRequest(ad){
+    
+    return {
+        type: AD_LOADED_REQUEST,
+        payload: ad,
+    }
+}
+
+
 export function loadSingleAd(AdvertId){
     
         return async function (dispatch, getState, {api, history}){
@@ -123,7 +155,7 @@ export function loadSingleAd(AdvertId){
             if (ad) {
                 return;
             }
-        //dispatch loadadrequ
+        dispatch(loadAdRequest(ad))
         try{
             const ad = await api.ads.getAdvert(AdvertId)
             dispatch(adLoaded(ad))
@@ -144,19 +176,68 @@ export function adCreated(ad) {
     }
 }
 
+export function adCreated_failure(error){
+    return {
+        type: AD_CREATED_FAILURE,
+        error: true,
+        payload: error,
+    };
+}
+
+export function adCreated_request(ad) {
+    return {
+        type: AD_CREATED_REQUEST,
+        payload: ad
+    }
+}
+
+export function adRemovedRequest(ad) {
+    return {
+        type: AD_DELETED_REQUEST,
+        payload: ad
+    }
+}
+
+export function adRemoved(ad) {
+    return {
+        type: AD_DELETED_SUCCESS,
+        payload: ad
+    }
+}
+export function adRemovedFailure(error){
+    return {
+        type: AD_DELETED_FAILURE,
+        error: true,
+        payload: error,
+    };
+}
+
 
 export function createAd(ad){
     return async function (dispatch, getState, {api}){
-        //request
+        dispatch(adCreated_request)
         try {
             const newAd = await api.ads.createAdvert(ad)
             const createdAd = await api.ads.getAdvert(newAd)
             dispatch(adCreated(createdAd))
-            //history.push
         } catch (error) {
-            //failure
+           dispatch(adCreated_failure)
         }
     }
     
 }
 
+
+export function RemoveAd(advertId){
+    return async function (dispatch, getState, {api, history}){
+        dispatch(adRemovedRequest)
+        try {
+            const newAd = await api.ads.deleteAdvert(advertId)
+            dispatch(adRemoved(newAd))
+            history.push('/adverts')
+        } catch (error) {
+            dispatch(adRemovedFailure)
+        }
+    }
+    
+}

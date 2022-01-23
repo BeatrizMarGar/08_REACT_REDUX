@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Redirect, useParams, useHistory } from 'react-router-dom';
 
 import Layout from '../../layout';
@@ -6,12 +6,8 @@ import AdvertDetail from './AdvertDetail';
 import { getAdvert, deleteAdvert } from '../service';
 import useQuery from '../../../hooks/useQuery';
 import useMutation from '../../../hooks/useMutation';
-import { connect, useSelector } from 'react-redux';
-import { getAd, getUi } from '../../../store/selectors';
-import { advert } from '../propTypes';
 import { useDispatch } from 'react-redux';
-import { loadAds, loadSingleAd } from '../../../store/actions';
-import { useState } from 'react';
+import {loadSingleAd, RemoveAd } from '../../../store/actions';
 
 function AdvertPage({}) {
   const { advertId } = useParams();
@@ -25,7 +21,6 @@ const dispatch = useDispatch()
 
 React.useEffect(() => {
 dispatch(loadSingleAd(advertId))
-  console.log("loadsingle")
 }, []);
 /*
   const dispatch = useDispatch();
@@ -41,6 +36,7 @@ dispatch(loadSingleAd(advertId))
   const mutation = useMutation(deleteAdvert);
 
   const handleDelete = () => {
+    dispatch(RemoveAd(advertId))
     mutation.execute(advertId).then(() => history.push('/'));
   };
 

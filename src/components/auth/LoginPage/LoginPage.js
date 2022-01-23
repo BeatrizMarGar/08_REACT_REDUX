@@ -4,8 +4,8 @@ import T from 'prop-types';
 import { login } from '../service';
 import LoginForm from './LoginForm';
 import useMutation from '../../../hooks/useMutation';
-import { useSelector, useDispatch } from 'react-redux';
-import {  authLogin, uiResetError } from '../../../store/actions';
+import { useDispatch } from 'react-redux';
+import { authLogin, uiResetError } from '../../../store/actions';
 import { getUi } from '../../../store/selectors'
 
 import { connect } from 'react-redux';
@@ -25,14 +25,7 @@ const resetError = () => {
   const handleSubmit = credentials => {
     dispatch(authLogin(credentials))
     execute(credentials)
-    /*
-      .then(console.log(credentials))
-
-      .then(() => {
-        const { from } = location.state || { from: { pathname: '/' } };
-        history.replace(from);
-      });
-      */
+    
   };
 
 
