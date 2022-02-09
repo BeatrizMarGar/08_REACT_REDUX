@@ -13,7 +13,7 @@ import { connect } from 'react-redux';
 
 export function LoginPage( { isLoading, error }) {
   
-  const { execute } = useMutation(login);
+ // const { execute } = useMutation(login);
 
  // const ownpr = {location, history}
 
@@ -24,7 +24,7 @@ const resetError = () => {
 
   const handleSubmit = credentials => {
     dispatch(authLogin(credentials))
-    execute(credentials)
+   // execute(credentials)
     
   };
 

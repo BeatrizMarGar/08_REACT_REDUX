@@ -48,7 +48,7 @@ export function ads(adsState = defaultState.ads, action) {
         case ADS_LOADED_REQUEST:
             return [adsState, action.payload];
         case AD_DELETED_SUCCESS:
-                        
+                     /*   
             let allAds = adsState.data;
 
             function arrayRemove(arr, value) { 
@@ -60,7 +60,8 @@ export function ads(adsState = defaultState.ads, action) {
                 });
             }
             var result = arrayRemove(allAds, action.payload);
-            return { ...adsState, data: result}
+            return { ...adsState, data: result}*/
+            return {...adsState, data: adsState.data.filter(advert => advert.id !== action.payload)};
         case AD_LOADED_SUCCESS:
         case AD_CREATED_SUCCESS:
             debugger

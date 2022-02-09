@@ -250,12 +250,14 @@ export function adRemovedFailure(error){
 
 
 export function createAd(ad){
-    return async function (dispatch, getState, {api}){
+    return async function (dispatch, getState, {api, history}){
         dispatch(adCreated_request)
         try {
             const newAd = await api.ads.createAdvert(ad)
             const createdAd = await api.ads.getAdvert(newAd)
             dispatch(adCreated(createdAd))
+            debugger
+            history.push('/adverts/' + ad.id)
         } catch (error) {
            dispatch(adCreated_failure)
         }
