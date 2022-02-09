@@ -21,6 +21,7 @@ export const getAdvert = advertId => {
 };
 
 export const deleteAdvert = advertId => {
+  debugger
   return client.delete(`${advertsPath}/${advertId}`);
 };
 

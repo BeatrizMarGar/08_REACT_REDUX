@@ -1,6 +1,6 @@
 
 import { areAdsLoaded, getAd} from "./selectors";
-import { AD_LOADED_SUCCESS, AD_LOADED_FAILURE, ADS_LOADED, AUTH_LOGIN_FAILURE, AUTH_LOGIN_REQUEST, AUTH_LOGIN_SUCCESS, AUTH_LOGOUT, TAGS_LOADED, UI_RESET_ERROR, ADS_LOADED_REQUEST, ADS_LOADED_FAILURE, AD_CREATED_SUCCESS, AD_DELETED_SUCCESS, TAGS_LOADED_REQUEST, TAGS_LOADED_FAILURE, AD_LOADED_REQUEST, AD_DELETED_FAILURE, AD_DELETED_REQUEST, AD_CREATED_REQUEST, AD_CREATED_FAILURE } from "./types";
+import { AD_LOADED_SUCCESS, AD_LOADED_FAILURE, ADS_LOADED, AUTH_LOGIN_FAILURE, AUTH_LOGIN_REQUEST, AUTH_LOGIN_SUCCESS, AUTH_LOGOUT, TAGS_LOADED, UI_RESET_ERROR, ADS_LOADED_REQUEST, ADS_LOADED_FAILURE, AD_CREATED_SUCCESS, AD_DELETED_SUCCESS, TAGS_LOADED_REQUEST, TAGS_LOADED_FAILURE, AD_LOADED_REQUEST, AD_DELETED_FAILURE, AD_DELETED_REQUEST, AD_CREATED_REQUEST, AD_CREATED_FAILURE, AUTH_LOGOUT_SUCCESS, AUTH_LOGOUT_FAILURE, AUTH_LOGOUT_REQUEST } from "./types";
 
 export function authLogin(credentials){
     return async function (dispatch, getState, { api, history }){
@@ -12,6 +12,19 @@ export function authLogin(credentials){
             history.replace(from);
         } catch (error) {
             dispatch(authLoginFailure(error))
+        }
+    };
+}
+export function authLogout(credentials){
+    return async function (dispatch, getState, { api, history }){
+        dispatch(authLogoutRequest())
+        try{
+            await api.auth.logout(credentials)
+            dispatch(authLogoutSuccess())
+            const { from } = history.location.state || { from: { pathname: '/login' } };
+            history.replace(from);
+        } catch (error) {
+            dispatch(authLogoutFailure(error))
         }
     };
 }
@@ -29,12 +42,13 @@ export function getAllTags(){
     };
 }
 
-
+/*
 export function authLogout(){
     return{
         type: AUTH_LOGOUT,
     }
 }
+*/
 
 export function adsLoaded (ads) {
     return {
@@ -79,6 +93,28 @@ export function authLoginSuccess(){
 export function authLoginFailure(error){
     return {
         type: AUTH_LOGIN_FAILURE,
+        //añado payload con info del error
+        error: true,
+        payload: error,
+    };
+}
+
+
+export function authLogoutRequest(){
+    return {
+        type: AUTH_LOGOUT_REQUEST,
+        //no necesito payload 
+    };
+}
+export function authLogoutSuccess(){
+    return {
+        type: AUTH_LOGOUT_SUCCESS,
+        //no necesito payload
+    };
+}
+export function authLogoutFailure(error){
+    return {
+        type: AUTH_LOGOUT_FAILURE,
         //añado payload con info del error
         error: true,
         payload: error,
@@ -233,7 +269,7 @@ export function RemoveAd(advertId){
         dispatch(adRemovedRequest)
         try {
             const newAd = await api.ads.deleteAdvert(advertId)
-            dispatch(adRemoved(newAd))
+            dispatch(adRemoved(advertId))
             history.push('/adverts')
         } catch (error) {
             dispatch(adRemovedFailure)
