@@ -11,6 +11,9 @@ import useQuery from '../../../hooks/useQuery';
 import { useDispatch } from 'react-redux';
 import { loadAds, tagsLoaded } from '../../../store/actions';
 import { getAllTags } from '../../../store/actions';
+import useStoreData from '../../../hooks/useStoreData';
+import { getAdverts_sel } from '../../../store/selectors';
+import useStoreAction from '../../../hooks/StoreActions';
 
 const getFilters = () => storage.get('filters') || defaultFilters;
 const saveFilters = filters => storage.set('filters', filters);
@@ -18,23 +21,21 @@ const saveFilters = filters => storage.set('filters', filters);
 function AdvertsPage() {
   
 const dispatch = useDispatch();
-  const { error, data: adverts = [] } = useQuery(getAdverts);
+  const adverts = useStoreData(getAdverts_sel)
+  const loadadverts = useStoreAction(loadAds)
   const [filters, setFilters] = React.useState(getFilters);
 
   React.useEffect(() => {
+    loadadverts();
+  }, [loadadverts]);
+  
+
+  React.useEffect(() => {
     saveFilters(filters);
-    dispatch(loadAds())
-    dispatch(getAllTags())
-  }, []);
-
+  }, [filters]);
   
-
-  if (error?.statusCode === 401) {
-    return <Redirect to="/login" />;
-  }
-
   const filteredAdverts = filterAdverts(adverts, filters);
-  
+  console.log(filterAdverts)
 
   return (
     <Layout>

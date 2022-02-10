@@ -45,8 +45,8 @@ export function auth(authstate = defaultState.auth, action){
 
 export function ads(adsState = defaultState.ads, action) {
     switch (action.type){
-        case ADS_LOADED_REQUEST:
-            return [adsState, action.payload];
+        //case ADS_LOADED_REQUEST:
+        //    return [adsState, action.payload];
         case AD_DELETED_SUCCESS:
                      /*   
             let allAds = adsState.data;
@@ -64,10 +64,9 @@ export function ads(adsState = defaultState.ads, action) {
             return {...adsState, data: adsState.data.filter(advert => advert.id !== action.payload)};
         case AD_LOADED_SUCCESS:
         case AD_CREATED_SUCCESS:
-            debugger
             return { ...adsState, data: [...adsState.data, action.payload]}
         case ADS_LOADED:
-            return {loaded: true, data: action.payload};
+            return { ...adsState, loaded: true, data: action.payload};
         case ADS_LOADED_FAILURE:
         case AD_DELETED_FAILURE:
             return adsState
@@ -75,18 +74,21 @@ export function ads(adsState = defaultState.ads, action) {
             return adsState;
     }
 }
-
+export const tags = (state = defaultState.tags, action) =>
+  action.type === TAGS_LOADED ? action.payload : state;
+/* 
 export function tags(tagState = defaultState.tags, action) {
     switch (action.type){
         case TAGS_LOADED_REQUEST:
             return {tagState}
         case TAGS_LOADED:
+            debugger
             return {tagState: action.payload};
         default:
             return tagState;
     }
 }
-
+*/ 
 export function ui(uiState = defaultState.ui, action){
     switch (action.type) {
         case AUTH_LOGIN_REQUEST:

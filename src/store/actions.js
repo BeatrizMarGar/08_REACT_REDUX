@@ -35,8 +35,10 @@ export function getAllTags(){
         dispatch(tagsRequest())
         try{
             const result = await api.ads.getTags()
+            debugger
             dispatch(tagsLoaded(result))
         } catch (error) {
+            debugger
             dispatch(tagsFailure(error))
         }
     };

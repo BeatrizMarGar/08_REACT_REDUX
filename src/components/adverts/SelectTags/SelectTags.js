@@ -5,19 +5,27 @@ import { CheckboxGroup } from '../../common';
 import { getAllTags } from '../../../store/actions';
 import { useDispatch, useSelector } from 'react-redux';
 import { tagsLoaded } from '../../../store/actions';
-import { getTagsSelector } from '../../../store/selectors';
+import { getTagsSelector, getTagsSelector2 } from '../../../store/selectors';
+import useStoreAction from '../../../hooks/StoreActions';
+import useStoreData from '../../../hooks/useStoreData';
 
 function SelectTags(props) {
-
-  const dispatch = useDispatch();
-  
-  const tags = useSelector(getTagsSelector)
-
+  const loadTagsAction = useStoreAction(getAllTags);
   React.useEffect(() => {
-    dispatch(tagsLoaded(tags));
- }, [tags]);
+    loadTagsAction();
+  });
 
-  return <CheckboxGroup options={tags} {...props} />;
+
+  
+  debugger
+  const tags = useStoreData(getTagsSelector);
+  debugger
+  const tags2 = useStoreData(getTagsSelector2);
+debugger
+  console.log(tags)
+  console.log(tags2)
+
+  return <CheckboxGroup options={tags2} {...props} />;
 }
 
 export default SelectTags;
