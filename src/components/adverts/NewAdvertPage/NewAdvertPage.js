@@ -8,25 +8,14 @@ import NewAdvertForm from './NewAdvertForm';
 import useMutation from '../../../hooks/useMutation';
 import { useDispatch } from 'react-redux';
 import { createAd } from '../../../store/actions';
+import useStoreAction from '../../../hooks/StoreActions';
 
-function NewAdvertPage({ history }) {
-  const dispatch = useDispatch()
-  const mutation = useMutation(createAdvert);
-
-  const handleSubmit = newAdvert => {
-    dispatch(createAd(newAdvert))
-    mutation
-      .execute(newAdvert)
-      .then(({ id }) => history.push(`/adverts/${id}`))
-  };
-
-  if (mutation.error?.statusCode === 401) {
-    return <Redirect to="/login" />;
-  }
+function NewAdvertPage() {
+  const createnewad = useStoreAction(createAd)
 
   return (
     <Layout>
-      <NewAdvertForm onSubmit={handleSubmit} />
+      <NewAdvertForm onSubmit={createnewad} />
     </Layout>
   );
 }

@@ -35,10 +35,10 @@ export function getAllTags(){
         dispatch(tagsRequest())
         try{
             const result = await api.ads.getTags()
-            debugger
+
             dispatch(tagsLoaded(result))
         } catch (error) {
-            debugger
+
             dispatch(tagsFailure(error))
         }
     };
@@ -252,15 +252,18 @@ export function adRemovedFailure(error){
 
 
 export function createAd(ad){
+    debugger
     return async function (dispatch, getState, {api, history}){
-        dispatch(adCreated_request)
+        dispatch(adCreated_request())
         try {
             const newAd = await api.ads.createAdvert(ad)
-            const createdAd = await api.ads.getAdvert(newAd)
-            dispatch(adCreated(createdAd))
+           // const createdAd = await api.ads.getAdvert(newAd)
+           console.log(newAd)
+            dispatch(adCreated(newAd))
             debugger
-            history.push('/adverts/' + ad.id)
+            history.push('/adverts/' + newAd.id)
         } catch (error) {
+            debugger
            dispatch(adCreated_failure)
         }
     }

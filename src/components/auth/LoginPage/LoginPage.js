@@ -3,7 +3,6 @@ import T from 'prop-types';
 
 import { login } from '../service';
 import LoginForm from './LoginForm';
-import useMutation from '../../../hooks/useMutation';
 import { useDispatch } from 'react-redux';
 import { authLogin, uiResetError } from '../../../store/actions';
 import { getUi } from '../../../store/selectors'
@@ -12,13 +11,9 @@ import { connect } from 'react-redux';
 
 
 export function LoginPage( { isLoading, error }) {
-  
- // const { execute } = useMutation(login);
 
- // const ownpr = {location, history}
-
- const dispatch = useDispatch();
-const resetError = () => {
+  const dispatch = useDispatch();
+  const resetError = () => {
     dispatch(uiResetError())
 }
 

@@ -9,7 +9,6 @@ const mapAdvert = ({ photo, ...advert }) => ({
 });
 
 export const getTags = () => {
-  debugger
   return client.get(`${advertsPath}/tags`);
 };
 
@@ -22,7 +21,6 @@ export const getAdvert = advertId => {
 };
 
 export const deleteAdvert = advertId => {
-  debugger
   return client.delete(`${advertsPath}/${advertId}`);
 };
 

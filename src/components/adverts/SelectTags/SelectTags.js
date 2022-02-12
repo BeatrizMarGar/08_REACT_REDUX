@@ -13,15 +13,12 @@ function SelectTags(props) {
   const loadTagsAction = useStoreAction(getAllTags);
   React.useEffect(() => {
     loadTagsAction();
-  });
+  }, []);
 
-
-  
-  debugger
   const tags = useStoreData(getTagsSelector);
-  debugger
+
   const tags2 = useStoreData(getTagsSelector2);
-debugger
+
   console.log(tags)
   console.log(tags2)
 
