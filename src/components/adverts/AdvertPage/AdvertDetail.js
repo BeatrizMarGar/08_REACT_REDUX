@@ -6,6 +6,8 @@ import placeholder from '../../../assets/images/placeholder.png';
 import { advert } from '../propTypes';
 
 function AdvertDetail({ name, sale, price, tags, photo, onDelete }) {
+
+
   return (
     <div>
       <p>{name}</p>

@@ -5,7 +5,7 @@ const advertsPath = '/v1/adverts';
 
 const mapAdvert = ({ photo, ...advert }) => ({
   ...advert,
-  photo: photo ? `${process.env.REACT_APP_API_BASE_URL}${photo}` : photo,
+  photo: photo ? `${process.env.REACT_APP_API_BASE_URL}${photo}` : null,
 });
 
 export const getTags = () => {
