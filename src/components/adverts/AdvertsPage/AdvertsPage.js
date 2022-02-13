@@ -7,7 +7,6 @@ import EmptyList from './EmptyList';
 import storage from '../../../utils/storage';
 import { getAdverts } from '../service';
 import { defaultFilters, filterAdverts } from './filters';
-import useQuery from '../../../hooks/useQuery';
 import { useDispatch } from 'react-redux';
 import { loadAds, tagsLoaded } from '../../../store/actions';
 import { getAllTags } from '../../../store/actions';
@@ -35,7 +34,6 @@ const dispatch = useDispatch();
   }, [filters]);
   
   const filteredAdverts = filterAdverts(adverts, filters);
-  console.log(filterAdverts)
 
   return (
     <Layout>

@@ -3,55 +3,34 @@ import { Redirect, useParams, useHistory } from 'react-router-dom';
 
 import Layout from '../../layout';
 import AdvertDetail from './AdvertDetail';
-import { getAdvert, deleteAdvert } from '../service';
-import useQuery from '../../../hooks/useQuery';
-import useMutation from '../../../hooks/useMutation';
-import { useDispatch } from 'react-redux';
+import { getAd } from '../../../store/selectors';
 import {loadSingleAd, RemoveAd } from '../../../store/actions';
+import useStoreAction from '../../../hooks/StoreActions';
+import useStoreData from '../../../hooks/useStoreData';
 
 function AdvertPage({}) {
   const { advertId } = useParams();
+  //preparo llamr al anuncio cargado
+  const loadAds = useStoreAction(loadSingleAd)
+  // Preparo eliminar anuncios
+  const deleteAds = useStoreAction(RemoveAd)
   const history = useHistory();
-  const getAdvertById = React.useCallback(
-    () => getAdvert(advertId),
-    [advertId],
-  );
-const dispatch = useDispatch()
+  const getAdvertById = useStoreData( state => getAd(state, advertId));
+//const dispatch = useDispatch()
 
 
 React.useEffect(() => {
-dispatch(loadSingleAd(advertId))
-}, []);
-/*
-  const dispatch = useDispatch();
-  dispatch(loadSingleAd(advertId))
-  advertinfo = advertId
-*/
-//const HandlegetAd = useSelector(getAd(...state, advertId))
-/*  React.useEffect(() => {
-    getAdvertById()
-  });
-*/
-  const { isLoading, error, data: advert } = useQuery(getAdvertById);
-  const mutation = useMutation(deleteAdvert);
+  loadAds(advertId)
+}, [loadAds, advertId]);
 
   const handleDelete = () => {
-    dispatch(RemoveAd(advertId))
-    mutation.execute(advertId).then(() => history.push('/'));
+    deleteAds(advertId)
   };
-
-  if (error?.statusCode === 401 || mutation.error?.statusCode === 401) {
-    return <Redirect to="/login" />;
-  }
-
-  if (error?.statusCode === 404) {
-    return <Redirect to="/404" />;
-  }
 
   return (
 
-    <Layout {...advert}>
-      {advert && <AdvertDetail {...advert} onDelete={handleDelete} />}
+    <Layout>
+      {getAdvertById && <AdvertDetail {...getAdvertById} onDelete={handleDelete} />}
     </Layout>
   );
 }

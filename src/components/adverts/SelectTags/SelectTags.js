@@ -15,12 +15,9 @@ function SelectTags(props) {
     loadTagsAction();
   }, []);
 
-  const tags = useStoreData(getTagsSelector);
+ // const tags = useStoreData(getTagsSelector);
 
   const tags2 = useStoreData(getTagsSelector2);
-
-  console.log(tags)
-  console.log(tags2)
 
   return <CheckboxGroup options={tags2} {...props} />;
 }

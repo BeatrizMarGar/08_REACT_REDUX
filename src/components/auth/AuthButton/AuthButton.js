@@ -1,39 +1,26 @@
 import { Link } from 'react-router-dom';
 import T from 'prop-types';
 import { ConfirmationButton } from '../../common';
-//import { AuthConsumer } from '../context';
-import { useSelector, useDispatch } from 'react-redux';
-import { logout } from '../service';
-import useMutation from '../../../hooks/useMutation';
 import { authLogout } from '../../../store/actions';
 import { getIsLogged } from '../../../store/selectors'
+import useStoreData from '../../../hooks/useStoreData';
+import useStoreAction from '../../../hooks/StoreActions';
 
 
 const AuthButton = () => {
-//const AuthButton = ({ handleLogout }) => {
-  const mutation = useMutation(logout);
-  
-  const isLogged = useSelector(getIsLogged)
-  const dispatch = useDispatch();
-  
-  const handleLogout = () => {
-    logout().then(() => dispatch(authLogout()))
-  }
 
-  const handleLogoutConfirm = async () => {
-    await mutation.execute();
-    handleLogout();
-  };
+  const knowLogged = useStoreData(getIsLogged)
+  const LogOutAct = useStoreAction(authLogout)
 
-  return isLogged ? (
+  return knowLogged ? (
     <ConfirmationButton
-      confirmation="Are you sure?"
-      onConfirm={handleLogoutConfirm}
+      confirmation="¿Seguro que quieres salir?"
+      onConfirm={LogOutAct}
     >
-      Logout
+      Desconectar
     </ConfirmationButton>
   ) : (
-    <Link to="/login">Login</Link>
+    <Link to="/login">Iniciar sesión</Link>
   );
 };
 

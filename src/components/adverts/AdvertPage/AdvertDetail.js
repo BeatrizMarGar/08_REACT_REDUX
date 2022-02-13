@@ -20,7 +20,7 @@ function AdvertDetail({ name, sale, price, tags, photo, onDelete }) {
         style={{ objectFit: 'contain' }}
       />
       <ConfirmationButton confirmation="Are you sure?" onConfirm={onDelete}>
-        Delete
+        Eliminar
       </ConfirmationButton>
     </div>
   );

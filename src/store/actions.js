@@ -1,5 +1,5 @@
 
-import { areAdsLoaded, getAd} from "./selectors";
+import { areAdsLoaded, getAd, getAdverts_sel} from "./selectors";
 import { AD_LOADED_SUCCESS, AD_LOADED_FAILURE, ADS_LOADED, AUTH_LOGIN_FAILURE, AUTH_LOGIN_REQUEST, AUTH_LOGIN_SUCCESS, AUTH_LOGOUT, TAGS_LOADED, UI_RESET_ERROR, ADS_LOADED_REQUEST, ADS_LOADED_FAILURE, AD_CREATED_SUCCESS, AD_DELETED_SUCCESS, TAGS_LOADED_REQUEST, TAGS_LOADED_FAILURE, AD_LOADED_REQUEST, AD_DELETED_FAILURE, AD_DELETED_REQUEST, AD_CREATED_REQUEST, AD_CREATED_FAILURE, AUTH_LOGOUT_SUCCESS, AUTH_LOGOUT_FAILURE, AUTH_LOGOUT_REQUEST } from "./types";
 
 export function authLogin(credentials){
@@ -186,14 +186,12 @@ export function loadAdRequest(ad){
 }
 
 
-export function loadSingleAd(AdvertId){
-    
+export const loadSingleAd = AdvertId =>{
         return async function (dispatch, getState, {api, history}){
-            const ad = getAd(getState(), AdvertId)
-            if (ad) {
+            if (getAd(getState(), AdvertId)) {
                 return;
             }
-        dispatch(loadAdRequest(ad))
+        dispatch(loadAdRequest())
         try{
             const ad = await api.ads.getAdvert(AdvertId)
             dispatch(adLoaded(ad))
@@ -252,18 +250,14 @@ export function adRemovedFailure(error){
 
 
 export function createAd(ad){
-    debugger
     return async function (dispatch, getState, {api, history}){
         dispatch(adCreated_request())
         try {
             const newAd = await api.ads.createAdvert(ad)
            // const createdAd = await api.ads.getAdvert(newAd)
-           console.log(newAd)
             dispatch(adCreated(newAd))
-            debugger
             history.push('/adverts/' + newAd.id)
         } catch (error) {
-            debugger
            dispatch(adCreated_failure)
         }
     }

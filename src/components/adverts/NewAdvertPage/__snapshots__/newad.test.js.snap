@@ -1,0 +1,204 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`NewAdvertForm snapshot 1`] = `
+<div>
+  <form>
+    <input
+      name="name"
+      value=""
+    />
+    <input
+      checked=""
+      name="sale"
+      type="checkbox"
+    />
+    <input
+      name="price"
+      type="number"
+      value="0"
+    />
+    <div>
+      <label>
+        <input
+          name="tags"
+          type="checkbox"
+          value="motor"
+        />
+        motor
+      </label>
+      <label>
+        <input
+          name="tags"
+          type="checkbox"
+          value="mobile"
+        />
+        mobile
+      </label>
+      <label>
+        <input
+          name="tags"
+          type="checkbox"
+          value="lifestyle"
+        />
+        lifestyle
+      </label>
+      <label>
+        <input
+          name="tags"
+          type="checkbox"
+          value="work"
+        />
+        work
+      </label>
+    </div>
+    <input
+      name="photo"
+      style="display: none;"
+      type="file"
+    />
+    <img
+      alt=""
+      height="200"
+      src="placeholder.png"
+      style="object-fit: contain;"
+      width="200"
+    />
+    <button
+      disabled=""
+    >
+      Save
+    </button>
+  </form>
+  ;
+</div>
+`;
+
+exports[`NewAdvertPage snapshot test 1`] = `
+Array [
+  <header>
+    Nodepop React
+    <nav>
+      <ul>
+        <li>
+          <a
+            aria-current={null}
+            href="/adverts"
+            onClick={[Function]}
+          >
+            Nodepop
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current={null}
+            href="/adverts/new"
+            onClick={[Function]}
+          >
+            New advert
+          </a>
+        </li>
+      </ul>
+    </nav>
+    <button
+      onClick={[Function]}
+    >
+      Desconectar
+    </button>
+  </header>,
+  <main>
+    <form
+      onSubmit={[Function]}
+    >
+      <input
+        name="name"
+        onChange={[Function]}
+        value=""
+      />
+      <input
+        checked={true}
+        name="sale"
+        onChange={[Function]}
+        type="checkbox"
+      />
+      <input
+        name="price"
+        onChange={[Function]}
+        type="number"
+        value={0}
+      />
+      <div>
+        <label>
+          <input
+            checked={false}
+            name="tags"
+            onChange={[Function]}
+            type="checkbox"
+            value="motor"
+          />
+          motor
+        </label>
+        <label>
+          <input
+            checked={false}
+            name="tags"
+            onChange={[Function]}
+            type="checkbox"
+            value="mobile"
+          />
+          mobile
+        </label>
+        <label>
+          <input
+            checked={false}
+            name="tags"
+            onChange={[Function]}
+            type="checkbox"
+            value="lifestyle"
+          />
+          lifestyle
+        </label>
+        <label>
+          <input
+            checked={false}
+            name="tags"
+            onChange={[Function]}
+            type="checkbox"
+            value="work"
+          />
+          work
+        </label>
+      </div>
+      <input
+        name="photo"
+        onChange={[Function]}
+        style={
+          Object {
+            "display": "none",
+          }
+        }
+        type="file"
+      />
+      <img
+        alt=""
+        height="200"
+        onClick={[Function]}
+        src="placeholder.png"
+        style={
+          Object {
+            "objectFit": "contain",
+          }
+        }
+        width="200"
+      />
+      <button
+        disabled={true}
+      >
+        Save
+      </button>
+    </form>
+  </main>,
+  <footer>
+    @Keepcoding 2021
+  </footer>,
+]
+`;

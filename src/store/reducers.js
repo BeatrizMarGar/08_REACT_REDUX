@@ -64,7 +64,6 @@ export function ads(adsState = defaultState.ads, action) {
             return {...adsState, data: adsState.data.filter(advert => advert.id !== action.payload)};
         case AD_LOADED_SUCCESS:
         case AD_CREATED_SUCCESS:
-            debugger
             return { ...adsState, data: [...adsState.data, action.payload]}
         case ADS_LOADED:
             return { ...adsState, loaded: true, data: action.payload};
@@ -83,7 +82,6 @@ export function tags(tagState = defaultState.tags, action) {
         case TAGS_LOADED_REQUEST:
             return {tagState}
         case TAGS_LOADED:
-            debugger
             return {tagState: action.payload};
         default:
             return tagState;

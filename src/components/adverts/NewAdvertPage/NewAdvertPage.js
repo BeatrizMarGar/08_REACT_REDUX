@@ -1,12 +1,7 @@
 import React from 'react';
 import T from 'prop-types';
-import { Redirect } from 'react-router-dom';
-
-import { createAdvert } from '../service';
 import Layout from '../../layout';
 import NewAdvertForm from './NewAdvertForm';
-import useMutation from '../../../hooks/useMutation';
-import { useDispatch } from 'react-redux';
 import { createAd } from '../../../store/actions';
 import useStoreAction from '../../../hooks/StoreActions';
 
@@ -19,11 +14,5 @@ function NewAdvertPage() {
     </Layout>
   );
 }
-
-NewAdvertPage.propTypes = {
-  history: T.shape({
-    push: T.func.isRequired,
-  }).isRequired,
-};
 
 export default NewAdvertPage;

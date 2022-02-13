@@ -7,7 +7,7 @@ import renderer from 'react-test-renderer';
 describe('NewAdvertPage', () => {
   test('snapshot test', () => {
     const store = {
-      getState: () => ({ auth: true }),
+      getState: () => ({ auth: true, tags: ['motor', 'mobile', 'lifestyle', 'work'] }),
       subscribe: () => {},
       dispatch: () => {},
     };

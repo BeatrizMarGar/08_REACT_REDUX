@@ -8,7 +8,7 @@ describe('GetAd', ()=>{
                 data,
             },
         };
-        expect(getAd(state, 2)).toEqual(data[0[1]])
+        expect(getAd(state, '2')).toEqual(data[0[1]])
     }),
     test('should be undefined', () => {
         const data = [{id: 1}, { id:2}]
@@ -17,7 +17,7 @@ describe('GetAd', ()=>{
                 data,
             },
         };
-        expect(getAd(state, 5)).toBeUndefined(data[0[1]])
+        expect(getAd(state, '5')).toBeUndefined(data[0[1]])
     })
 })
 ;
